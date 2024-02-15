@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('applicables', function (Blueprint $table) {
             $table->id();
+            $table->string('category');
             $table->timestamps();
         });
     }

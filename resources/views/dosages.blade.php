@@ -1,34 +1,23 @@
+@extends('layouts.layout')
 
-
-<!doctype>
-
-<html>
-<head>
-    <title>Dosage</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/app.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-
-<div class="container">
+@section('content')
     <div class="row">
         <div class="col-md-offset-1 col-md-10">
             <div class="panel">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-sm-3 col-xs-12">
-                            <h4 class="title">Data <span>List</span></h4>
+                            <h4 class="title">Dosage <span>Form</span></h4>
                         </div>
                         <div class="col-sm-9 col-xs-12 text-right">
                             <div class="btn_group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <button class="btn btn-default" title="Search">Search<i class="fa fa-sync-alt"></i></button>
-                                <button class="btn btn-default" title="Create">Create<i class="fa fa-file-pdf"></i></button>
+
+                                <form action="{{ route('dosage-list') }}" method="GET" role="search" style="display: inline-block;">
+                                    <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
+                                    <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
+                                </form>
+                                <a class="btn btn-info" href="{{route('dosage-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
+
                             </div>
                         </div>
                     </div>
@@ -37,40 +26,36 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>Name</th>
                             <th>Short Name</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Vincent Williamson</td>
-                            <td>31</td>
+                        @foreach($dosages as $dosage)
+                            <tr>
+                                <td>{{ $dosage->name }}</td>
+                                <td>{{ $dosage->short_name }}</td>
+                                <td>
+                                    <ul style="display: flex; " class="action-list">
+                                        <li><a class="btn btn-warning" href="/dosages_edit/{{ $dosage->id }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
 
-                            <td>
-                                <ul class="action-list">
-                                    <li><a href="#" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" data-tip="delete">Del<i class="fa fa-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Taylor Reyes</td>
-                            <td>22</td>
-                            <td>
-                                <ul class="action-list">
-                                    <li><a href="#" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
-                                    <li><a href="#" data-tip="delete">Del<i class="fa fa-trash"></i></a></li>
-                                </ul>
-                            </td>
-                        </tr>
-
+                                        <li>
+                                            <form action="/dosages/{{ $dosage->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" data-tip="delete">Del<i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
+
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
@@ -94,6 +79,5 @@
             </div>
         </div>
     </div>
-</div>
 
-</html>
+@endsection

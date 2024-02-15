@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('generics', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('composition');
+            $table->text('indication');
+            $table->string('applicable_for');
             $table->timestamps();
         });
     }

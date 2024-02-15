@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Applicable;
 use App\Models\Dosage;
 use App\Models\Drug;
@@ -11,54 +12,38 @@ use Illuminate\Http\Request;
 
 class DrugController extends Controller
 {
-
-//    public function index()
-//    {
-//        $drugs = Drug::all();
-//        return view('drugs',['drugs'=>$drugs]);
-//    }
-
-    public function index()
+    public function index(): array
     {
-        $drugs = Drug::all();
-        return view('drugs',['drugs'=>$drugs]);
-    }
-
-
-    public function indexAPI(){
         return [
-            'data' => Drug::query()->get(['id', 'name'])
+            'data' => Drug::query()->get(['id', 'name','strength','dosage_form','generic','company','applicable_for'])
         ];
     }
 
-    public function create()
+    public function store(Request $request): array
     {
-        $dosages = Dosage::all();
-        $generics = Generic::all();
-        $companies = Pharmaceutical::all();
-        $applicables = Applicable::all();
+        $request->validate([
+            'name' => 'required',
+            'strength' => 'required',
+            'dosage_form' => 'required',
+            'generic' => 'required',
+            'company' => 'required',
+            'applicable_for' => 'required',
+        ]);
 
-        return view('create_drug', compact('dosages', 'generics', 'companies', 'applicables'));
+        $drug = Drug::create([
+            'name' => $request->name,
+            'strength' => $request->strength,
+            'dosage_form' => $request->dosage_form,
+            'generic' => $request->generic,
+            'company' => $request->company,
+            'applicable_for' => $request->applicable_for,
+        ]);
+        return [
+            'message' => 'Success',
+            'data' => [
+                'id' => $drug->id,
+                'name' => $drug->name,
+            ]
+        ];
     }
-
-    public function store(Request $request)
-    {
-
-        $drug = new Drug;
-        $drug->name = $request->name;
-        $drug->strength = $request->strength;
-        $drug->dosage_form = $request->dosage_form;
-        //$drug->foreignId('dosage_form')->constrained('dosages');
-
-        $drug->generic = $request->generic;
-        //$drug->foreignId('generic')->constrained('dosages');
-        $drug->company = $request->company;
-        $drug->applicable_for = $request->applicable_for;
-
-        $drug->save();
-
-        return redirect('/drugs');
-    }
-
-
 }
