@@ -41,7 +41,6 @@ class DosageController extends Controller{
                 'name' => $dosage->name
             ]
         ];
-
     }
 
 

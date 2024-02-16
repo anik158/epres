@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\DrugController;
 use App\Http\Controllers\Api\DosageController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\GenericController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,13 @@ Route::post('dosages',[DosageController::class,'store']);
 Route::get('dosages/search/{search}',[DosageController::class,'search']);
 Route::put('dosages/{id}',[DosageController::class,'update']);
 Route::delete('dosages/{id}',[DosageController::class,'destroy']);
+
+//Generic API
+Route::get('/generics', [GenericController::class, 'index']);
+Route::get('/generics/create', [GenericController::class, 'create']);
+Route::post('/generics', [GenericController::class, 'store']);
+Route::delete('/generics/{id}', [GenericController::class, 'destroy']);
+Route::put('/generics/{id}', [GenericController::class, 'update']);
+Route::get('/generics/{id}/edit', [GenericController::class, 'edit']);
+
 
