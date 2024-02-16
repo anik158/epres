@@ -32,6 +32,10 @@ class DosageController extends Controller
     public function store(Request $req)
     {
 
+        $req->validate([
+            'name' => 'required',
+            'short_name' => 'required'
+        ]);
 
         try {
             $dosage = new Dosage;
@@ -62,6 +66,11 @@ class DosageController extends Controller
     }
 
     public function update(Request $req, $id){
+
+        $req->validate([
+            'name' => 'required',
+            'short_name' => 'required'
+        ]);
 
         try{
             $dosage = Dosage::find($id);

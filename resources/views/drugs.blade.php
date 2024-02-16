@@ -11,9 +11,13 @@
                         </div>
                         <div class="col-sm-9 col-xs-12 text-right">
                             <div class="btn_group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <button class="btn btn-default" title="Search">Search<i class="fa fa-sync-alt"></i></button>
-                                <a  class="btn btn-default" href="{{route('drug-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
+
+                                <form action="{{ route('drug-list') }}" method="GET" role="search" style="display: inline-block;">
+                                    <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
+                                    <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
+                                </form>
+                                <a class="btn btn-info" href="{{route('drug-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
+
                             </div>
                         </div>
                     </div>
@@ -35,17 +39,24 @@
                         <tbody>
                         @foreach($drugs as $drug)
                             <tr>
-                                <td>{{ $drug['id'] }}</td>
-                                <td>{{ $drug['name'] }}</td>
-                                <td>{{ $drug['strength'] }}</td>
-                                <td>{{ $drug['dosage_form'] }}</td>
-                                <td>{{ $drug['generic'] }}</td>
-                                <td>{{ $drug['company'] }}</td>
-                                <td>{{ $drug['applicable_for'] }}</td>
+                                <td>{{ $drug->id }}</td>
+                                <td>{{ $drug->name }}</td>
+                                <td>{{ $drug->strength }}</td>
+                                <td>{{ $drug->dosage_form }}</td>
+                                <td>{{ $drug->generic }}</td>
+                                <td>{{ $drug->company }}</td>
+                                <td>{{ $drug->applicable_for }}</td>
                                 <td>
-                                    <ul class="action-list">
-                                        <li><a href="#" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
-                                        <li><a href="#" data-tip="delete">Del<i class="fa fa-trash"></i></a></li>
+                                    <ul class="action-list" style="display: flex">
+                                        <li><a class="btn btn-warning" href="/drugs_edit/{{ $drug->id }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
+
+                                        <li>
+                                            <form action="/drugs/{{ $drug->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" data-tip="delete">Del<i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </td>
                             </tr>

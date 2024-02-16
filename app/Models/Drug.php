@@ -35,8 +35,9 @@ class Drug extends Model
 
     public function applicable()
     {
-        return $this->belongsTo(Applicable::class, 'applicable_for');
+        return $this->belongsTo(Applicable::class, 'applicables_for', 'category');
     }
+
 
 
 }

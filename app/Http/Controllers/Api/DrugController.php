@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class DrugController extends Controller
 {
-    public function index(): array
+    public function index()
     {
         return [
             'data' => Drug::query()->get(['id', 'name','strength','dosage_form','generic','company','applicable_for'])
