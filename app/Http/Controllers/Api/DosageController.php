@@ -50,6 +50,7 @@ class DosageController extends Controller{
             ->orWhere('short_name', 'LIKE', "%{$search}%")
             ->get(['name', 'short_name']);
 
+
         return ['dosages' => $dosages];
     }
 

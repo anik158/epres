@@ -20,6 +20,8 @@ class DosageController extends Controller
             $dosages = Dosage::all();
         }
 
+
+
         return view('dosages', ['dosages' => $dosages]);
     }
 
