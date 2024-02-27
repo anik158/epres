@@ -93,7 +93,6 @@ class DrugController extends Controller
         $results = $client->search($params);
 
         $drugs = collect($results['hits']['hits'])->map(function ($hit) {
-            dd($hit);
             return $hit['_source'];
         });
 
