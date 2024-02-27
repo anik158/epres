@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "cviebrock/eloquent-sluggable": "^10.0",
+        "elasticsearch/elasticsearch": "^8.12",
         "guzzlehttp/guzzle": "^7.8",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^10.10",
@@ -64,5 +65,6 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "elasticsearch/elasticsearch": "^7.11"
 }

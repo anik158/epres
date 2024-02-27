@@ -35,6 +35,11 @@ return [
 
     'connections' => [
 
+        'elasticsearch' => [
+            'driver' => 'elasticsearch',
+            'hosts' => [ env('ELASTICSEARCH_HOST', '127.0.0.1'). ':'. env('ELASTICSEARCH_PORT', '9200')],
+        ],
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),

@@ -18,7 +18,7 @@ use App\Http\Controllers\DrugController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('drug-list');
 });
 
 //Routing Dosage
@@ -43,6 +43,7 @@ Route::get('/companies', [PharmaceuticalController::class, 'index']);
 Route::get('/drugs/create', [DrugController::class, 'create'])->name('drug-create');
 Route::post('/drugs', [DrugController::class, 'store']);
 Route::get('/drugs', [DrugController::class, 'index'])->name('drug-list');
+Route::get('/drugs-search', [DrugController::class, 'search'])->name('drugs-search');
 Route::get('/drugs_edit/{id}',[DrugController::class,'edit']);
 Route::delete('/drugs/{id}', [DrugController::class, 'destroy']);
 

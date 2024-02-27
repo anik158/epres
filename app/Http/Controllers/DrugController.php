@@ -7,12 +7,15 @@ use App\Models\Dosage;
 use App\Models\Drug;
 use App\Models\Generic;
 use App\Models\Pharmaceutical;
+use Elastic\Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Exception\AuthenticationException;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
-
 
 class DrugController extends Controller
 {
@@ -33,6 +36,38 @@ class DrugController extends Controller
 
         return view('drugs', ['drugs' => $drugs]);
     }
+
+    /**
+     * @throws AuthenticationException
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     */
+    public function search(Request $request)
+    {
+        $client = ClientBuilder::create()
+            ->setHosts(config('database.connections.elasticsearch.hosts'))
+            ->build();
+        $params = [
+            'index' => 'drugs',
+            'body'  => [
+                'query' => [
+                    'multi_match' => [
+                        'query' => $request->input('search'),
+                        'fields' => ['name', 'strength', 'dosage_form', 'generic', 'company', 'applicable_for']
+                    ]
+                ]
+            ]
+        ];
+        $results = $client->search($params);
+
+        $drugs = collect($results['hits']['hits'])->map(function ($hit) {
+            return $hit['_source'];
+        });
+
+        return view('drugs', ['drugs' => $drugs]);
+    }
+
+
     public function create(): View
     {
         $dosages = Dosage::all();

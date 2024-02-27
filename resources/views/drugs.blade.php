@@ -12,7 +12,7 @@
                         <div class="col-sm-9 col-xs-12 text-right">
                             <div class="btn_group">
 
-                                <form action="{{ route('drug-list') }}" method="GET" role="search" style="display: inline-block;">
+                                <form action="{{ route('drugs-search') }}" method="GET" role="search" style="display: inline-block;">
                                     <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
                                     <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
                                 </form>
