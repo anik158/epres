@@ -40,6 +40,8 @@ Route::delete('/generic/{id}', [GenericController::class, 'destroy']);
 Route::get('/companies', [PharmaceuticalController::class, 'index']);
 
 //Routing Drugs
+//Route::get('/create-index', 'YourController@createIndexAndAddData');
+Route::get('/create-index-elastic', [DrugController::class, 'createIndexAndAddData'])->name('create-index-elastic');
 Route::get('/drugs/create', [DrugController::class, 'create'])->name('drug-create');
 Route::post('/drugs', [DrugController::class, 'store']);
 Route::get('/drugs', [DrugController::class, 'index'])->name('drug-list');

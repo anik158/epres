@@ -39,19 +39,29 @@
                         <tbody>
                         @foreach($drugs as $drug)
                             <tr>
-                                <td>{{ $drug->id }}</td>
-                                <td>{{ $drug->name }}</td>
-                                <td>{{ $drug->strength }}</td>
-                                <td>{{ $drug->dosage_form }}</td>
-                                <td>{{ $drug->generic }}</td>
-                                <td>{{ $drug->company }}</td>
-                                <td>{{ $drug->applicable_for }}</td>
+{{--                                <td>{{ $drug->id }}</td>--}}
+{{--                                <td>{{ $drug->name }}</td>--}}
+{{--                                <td>{{ $drug->strength }}</td>--}}
+{{--                                <td>{{ $drug->dosage_form }}</td>--}}
+{{--                                <td>{{ $drug->generic }}</td>--}}
+{{--                                <td>{{ $drug->company }}</td>--}}
+{{--                                <td>{{ $drug->applicable_for }}</td>--}}
+
+                                <td>{{ $drug['id'] }}</td>
+                                <td>{{ $drug['name'] }}</td>
+                                <td>{{ $drug['strength'] }}</td>
+                                <td>{{ $drug['dosage_form'] }}</td>
+                                <td>{{ $drug['generic'] }}</td>
+                                <td>{{ $drug['company'] }}</td>
+                                <td>{{ $drug['applicable_for'] }}</td>
                                 <td>
                                     <ul class="action-list" style="display: flex">
-                                        <li><a class="btn btn-warning" href="/drugs_edit/{{ $drug->id }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
+                                       {{-- <li><a class="btn btn-warning" href="/drugs_edit/{{ $drug->id }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li> --}}
+                                        <li><a class="btn btn-warning" href="/drugs_edit/{{ $drug['id'] }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
 
                                         <li>
-                                            <form action="/drugs/{{ $drug->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{{--                                            <form action="/drugs/{{ $drug->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">--}}
+                                            <form action="/drugs/{{ $drug['id'] }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" data-tip="delete">Del<i class="fa fa-trash"></i></button>

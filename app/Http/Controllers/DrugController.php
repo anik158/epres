@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class DrugController extends Controller
@@ -31,6 +32,8 @@ class DrugController extends Controller
         } else {
             $drugs = Drug::all();
         }
+
+
         //$drugs = Http::get('http://127.0.0.1:8000/api/drugs/');
         //dd($drugs);
 
@@ -42,11 +45,39 @@ class DrugController extends Controller
      * @throws ClientResponseException
      * @throws ServerResponseException
      */
+    // This function should be called once to create the index and populate it with data
+    public function createIndexAndAddData()
+    {
+        $client = ClientBuilder::create()
+            ->setHosts(config('database.connections.elasticsearch.hosts'))
+            ->build();
+
+
+        $params = ['index' => 'drugs'];
+        $response = $client->indices()->create($params);
+
+
+        $drugs = Drug::all();
+
+
+        foreach ($drugs as $drug) {
+            $params = [
+                'index' => 'drugs',
+                'id'    => $drug->id,
+                'body'  => $drug
+            ];
+
+            $response = $client->index($params);
+        }
+    }
+
+// This function should be called to perform a search
     public function search(Request $request)
     {
         $client = ClientBuilder::create()
             ->setHosts(config('database.connections.elasticsearch.hosts'))
             ->build();
+
         $params = [
             'index' => 'drugs',
             'body'  => [
@@ -58,14 +89,17 @@ class DrugController extends Controller
                 ]
             ]
         ];
+
         $results = $client->search($params);
 
         $drugs = collect($results['hits']['hits'])->map(function ($hit) {
+            dd($hit);
             return $hit['_source'];
         });
 
         return view('drugs', ['drugs' => $drugs]);
     }
+
 
 
     public function create(): View
@@ -90,6 +124,20 @@ class DrugController extends Controller
 
         $drug->save();
 
+        // After saving the new drug to the database, also add it to the Elasticsearch index
+        /**
+        $client = ClientBuilder::create()
+            ->setHosts(config('database.connections.elasticsearch.hosts'))
+            ->build();
+
+        $params = [
+            'index' => 'drugs',
+            'id'    => $drug->id,
+            'body'  => $drug
+        ];
+
+        $response = $client->index($params);
+        */
         return redirect('/drugs');
     }
 
