@@ -13,7 +13,9 @@
                             <div class="btn_group">
 
                                 <form action="{{ route('drugs-search') }}" method="GET" role="search" style="display: inline-block;">
-                                    <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
+                                    <label>
+                                        <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
+                                    </label>
                                     <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
                                 </form>
                                 <a class="btn btn-info" href="{{route('drug-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
@@ -70,33 +72,30 @@
                                     </ul>
                                 </td>
                             </tr>
+
+
                         @endforeach
+
+
 
                         </tbody>
 
                     </table>
                 </div>
 
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
-                        <div class="col-sm-6 col-xs-6">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#"><</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">></a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#"><</a></li>
-                                <li><a href="#">></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+
+                    <nav class="mt-4">
+                        {{ $drugs->links('vendor.pagination.bootstrap-4') }}
+
+                    </nav>
+
+{{--                <div class="panel-footer">--}}
+{{--                    <div class="row">--}}
+{{--                        @isset($drugs)--}}
+{{--                        {{$drugs->links()}}--}}
+{{--                        @endisset--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>
