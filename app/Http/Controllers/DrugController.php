@@ -96,11 +96,14 @@ class DrugController extends Controller
                 'query' => [
                     'multi_match' => [
                         'query' => $request->input('search'),
-                        'fields' => ['name', 'strength', 'dosage_form', 'generic', 'company', 'applicable_for']
+//                        'fields' => ['name', 'strength', 'dosage_form', 'generic', 'company', 'applicable_for']
+                        'fields' => ['name', 'generic']
                     ]
                 ]
             ]
         ];
+
+        $start = microtime(true); // Start the timer
 
         $results = $client->search($params);
 
@@ -120,10 +123,32 @@ class DrugController extends Controller
             ['path' => $request->url(), 'query' => $request->query()] // Page name
         );
 
-        return view('drugs', ['drugs' => $drugs]);
+        $time = microtime(true) - $start; // Calculate the time difference
+
+        return view('drugs', ['drugs' => $drugs, 'time' => $time]);
     }
 
 
+
+//return view('drugs', ['drugs' => $drugs]);
+    public function searchDrugs(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $start = microtime(true); // Start the timer
+
+        $drugs = Drug::where('name', 'like', '%' . $searchTerm . '%')
+//            ->orWhere('strength', 'like', '%' . $searchTerm . '%')
+//            ->orWhere('dosage_form', 'like', '%' . $searchTerm . '%')
+            ->orWhere('generic', 'like', '%' . $searchTerm . '%')
+//            ->orWhere('company', 'like', '%' . $searchTerm . '%')
+//            ->orWhere('applicable_for', 'like', '%' . $searchTerm . '%')
+            ->paginate(40);
+
+        $time = microtime(true) - $start; // Calculate the time difference
+
+        return view('drugs', ['drugs' => $drugs, 'time' => $time]);
+    }
 
 
     public function create(): View

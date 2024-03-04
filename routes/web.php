@@ -5,6 +5,8 @@ use App\Http\Controllers\GenericController;
 use App\Http\Controllers\PharmaceuticalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DrugController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,27 @@ use App\Http\Controllers\DrugController;
 |
 */
 
+/*Bootstrap Route
+---------------------*/
+
+Route::get('/dashboard',function (){
+    return view('auth.dashboard');
+})->name('dashboard')->middleware('auth');
+
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/login',[AuthController::class,'loginPost'])->name('login-user');
+Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+
+
+Route::get('/signup',[AuthController::class,'signup'])->name('signup');
+Route::post('/signup',[AuthController::class,'store'])->name('create-user');
+
+
 Route::get('/', function () {
     return redirect()->route('drug-list');
 });
+
+
 
 //Routing Dosage
 Route::get('/dosages', [DosageController::class, 'index'])->name('dosage-list');
@@ -45,8 +65,10 @@ Route::get('/create-index-elastic', [DrugController::class, 'createIndexAndAddDa
 Route::get('/drugs/create', [DrugController::class, 'create'])->name('drug-create');
 Route::post('/drugs', [DrugController::class, 'store']);
 Route::get('/drugs', [DrugController::class, 'index'])->name('drug-list');
-Route::get('/drugs-search', [DrugController::class, 'search'])->name('drugs-search');
 Route::get('/drugs_edit/{id}',[DrugController::class,'edit']);
 Route::delete('/drugs/{id}', [DrugController::class, 'destroy']);
-
+//Elastic
+Route::get('/drugs-search', [DrugController::class, 'search'])->name('drugs-search');
+//Elequent
+//Route::get('/drugs-search', [DrugController::class, 'searchDrugs'])->name('drugs-search');
 
