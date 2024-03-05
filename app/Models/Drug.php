@@ -39,5 +39,4 @@ class Drug extends Model
     }
 
 
-
 }

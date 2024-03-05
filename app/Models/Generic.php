@@ -12,7 +12,7 @@ class Generic extends Model
     protected $fillable = [
         'name',
         'composition',
-        'indication',
+        'indications',
         'applicable_for',
     ];
     public function applicable()

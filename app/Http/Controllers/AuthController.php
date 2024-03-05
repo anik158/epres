@@ -70,4 +70,8 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
+    public function tableData(){
+        return view('tables-data');
+    }
+
 }

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Applicable extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'category',
+    ];
 
 
     public function generics()

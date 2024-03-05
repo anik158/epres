@@ -26,9 +26,9 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="{{route('dashboard')}}" class="logo d-flex align-items-center">
             <img src="{{asset('assets/auth/img/logo.png')}}" alt="">
-            <span class="d-none d-lg-block">NiceAdmin</span>
+            <span class="d-none d-lg-block">EPres</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -392,8 +392,20 @@
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a href="{{route('table-data')}}">
                         <i class="bi bi-circle"></i><span>Data Tables</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('generic-list')}}">
+                        <i class="bi bi-circle"></i><span>Generics</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('drug-list')}}">
+                        <i class="bi bi-circle"></i><span>Drugs</span>
                     </a>
                 </li>
             </ul>
