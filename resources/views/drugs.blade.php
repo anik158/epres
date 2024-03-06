@@ -90,15 +90,7 @@
                                                 <tbody>
                                                 @foreach($drugs as $drug)
                                                     <tr>
-                                                        {{--                                <td>{{ $drug->id }}</td>--}}
-                                                        {{--                                <td>{{ $drug->name }}</td>--}}
-                                                        {{--                                <td>{{ $drug->strength }}</td>--}}
-                                                        {{--                                <td>{{ $drug->dosage_form }}</td>--}}
-                                                        {{--                                <td>{{ $drug->generic }}</td>--}}
-                                                        {{--                                <td>{{ $drug->company }}</td>--}}
-                                                        {{--                                <td>{{ $drug->applicable_for }}</td>--}}
 
-{{--                                                        <td>{{ $drug['id'] }}</td>--}}
                                                         <td>{{ $drug['name'] }}</td>
                                                         <td>{{ $drug['strength'] }}</td>
                                                         <td>{{ $drug['dosage_form'] }}</td>
@@ -138,13 +130,6 @@
 
                                         </nav>
 
-                                        {{--                <div class="panel-footer">--}}
-                                        {{--                    <div class="row">--}}
-                                        {{--                        @isset($drugs)--}}
-                                        {{--                        {{$drugs->links()}}--}}
-                                        {{--                        @endisset--}}
-                                        {{--                    </div>--}}
-                                        {{--                </div>--}}
                                     </div>
                                 </div>
                             </div>

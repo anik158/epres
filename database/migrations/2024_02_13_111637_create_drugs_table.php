@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('drugs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('strength');
+            $table->string('strength')->nullable();
             $table->string('dosage_form');
             $table->string('generic');
-            $table->string('company')->nullable();
+            $table->string('company');
             $table->string('applicable_for')->nullable();
             $table->timestamps();
         });

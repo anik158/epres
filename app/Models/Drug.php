@@ -19,18 +19,18 @@ class Drug extends Model
     ];
     public function dosage()
     {
-        return $this->belongsTo(Dosage::class, 'dosage_form');
+        return $this->belongsTo(Dosage::class, 'dosage_form','base_name');
     }
 
     public function generic()
     {
-        return $this->belongsTo(Generic::class, 'generic');
+        return $this->belongsTo(Generic::class, 'generic','name');
     }
 
 
     public function company()
     {
-        return $this->belongsTo(Pharmaceutical::class, 'company');
+        return $this->belongsTo(Pharmaceutical::class, 'company','name');
     }
 
     public function applicable()

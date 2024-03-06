@@ -9,5 +9,12 @@ class Pharmaceutical extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
 
+    public function drugs()
+    {
+        return $this->hasMany(Drug::class, 'company', 'name');
+    }
 }

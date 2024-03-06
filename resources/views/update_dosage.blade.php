@@ -19,6 +19,15 @@
                         @csrf
                         @method('PUT')
 
+
+                        <div class="form-group">
+                            <label for="image" class="col-sm-2 control-label">Icon <i class="bi bi-image"></i></label>
+                            <div class="col-sm-10">
+                                <img src="{{ asset('storage/uploads/dosages/' . $dosage->image) }}" alt="Current Icon">
+                                <input type="file" id="image" name="image"><br>
+                            </div>
+                        </div>
+
                         <label for="name" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
                             <div class="form-group">
@@ -30,6 +39,13 @@
                             <label for="short_name" class="col-sm-2 control-label">Short Name</label>
                             <div class="col-sm-10">
                                 <input type="text" id="short_name" value="{{$dosage->short_name}}" class="form-control" name="short_name"><br>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="short_name" class="col-sm-2 control-label">Base Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="short_name" value="{{$dosage->base_name}}" class="form-control" name="short_name"><br>
                             </div>
                         </div>
 

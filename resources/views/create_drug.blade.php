@@ -19,7 +19,7 @@
                             <label for="name" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
                         <div class="form-group">
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                         </div>
 

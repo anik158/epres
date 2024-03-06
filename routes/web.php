@@ -21,6 +21,13 @@ use App\Http\Controllers\AuthController;
 
 /*Bootstrap Route
 ---------------------*/
+
+Route::get('/', function () {
+    return redirect()->route('drug-list');
+});
+
+
+
 Route::get('/signup',[AuthController::class,'signup'])->name('signup');
 Route::post('/signup',[AuthController::class,'store'])->name('create-user');
 
@@ -37,23 +44,26 @@ Route::get('/table-list',[AuthController::class,'tableData'])->name('table-data'
 
 
 
-Route::get('/', function () {
-    return redirect()->route('drug-list');
-});
 
 
 
 //Routing Dosage
+//Populate Elastic Data table for dosage
+Route::get('/dosage-elastic-add', [DosageController::class, 'createIndexAndAddDataDosage'])->name('dosage-elastic-populate');
+
+
 Route::get('/dosages', [DosageController::class, 'index'])->name('dosage-list');
 Route::get('/dosages/create', [DosageController::class, 'create'])->name('dosage-create');
 Route::post('/dosages',[DosageController::class,'store']);
+//Route::get('/dosage-search', [DosageController::class, 'searchDosages'])->name('dosage-search');
+Route::get('/dosage-search', [DosageController::class, 'searchdos'])->name('dosage-search');
 Route::delete('/dosages/{id}',[DosageController::class,'destroy']);
 Route::get('/dosages_edit/{id}', [DosageController::class, 'edit']);
 Route::put('/dosages_update/{id}',[DosageController::class,'update']);
 
 //Routing Generic
 
-//Populate Elastic Data table
+//Populate Elastic Data table for generics
 Route::get('/generics-elastic-add', [GenericController::class, 'createIndexAndAddDataGeneric'])->name('generic-elastic-populate');
 
 Route::get('/generics', [GenericController::class, 'index'])->name('generic-list');
@@ -66,10 +76,21 @@ Route::put('/generics_update/{id}', [GenericController::class, 'update']);
 Route::delete('/generic/{id}', [GenericController::class, 'destroy']);
 
 //Routing Companies
+//Populate Elastic Data table for generics
+Route::get('/companies-elastic-add', [PharmaceuticalController::class, 'createIndexAndAddCompanies'])->name('company-elastic-populate');
+
 Route::get('/companies', [PharmaceuticalController::class, 'index'])->name('company-list')->middleware('auth');
+Route::get('/companies/create', [PharmaceuticalController::class, 'create'])->name('company-create');
+Route::post('/companies', [PharmaceuticalController::class, 'store']);
+Route::get('/companies_edit/{id}', [PharmaceuticalController::class, 'edit']);
+Route::put('/companies_update/{id}',[PharmaceuticalController::class,'update']);
+Route::delete('/companies/{id}',[PharmaceuticalController::class,'destroy']);
+//Route::get('/companies-search', [PharmaceuticalController::class, 'searchCompanies'])->name('companies-search');
+Route::get('/companies-search', [PharmaceuticalController::class, 'searchcom'])->name('companies-search');
+
 
 //Routing Drugs
-//Populate Elastic Data table
+//Populate Elastic Data table for drugs
 Route::get('/create-index-elastic', [DrugController::class, 'createIndexAndAddData'])->name('create-index-elastic');
 
 //Route::get('/create-index', 'MyController@createIndexAndAddData');

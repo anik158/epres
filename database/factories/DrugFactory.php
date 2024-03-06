@@ -2,42 +2,36 @@
 
 namespace Database\Factories;
 
+use App\Models\Applicable;
+use App\Models\Dosage;
+use App\Models\Drug;
+use App\Models\Generic;
+use App\Models\Pharmaceutical;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Drug>
- */
 class DrugFactory extends Factory
 {
     /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Drug::class;
+
+    /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'strength' => $this->faker->name,
-            'dosage_form' => $this->faker->randomElement([
-                'Tablet',
-                'Capsule',
-                'Solution',
-            ]),
-            'generic' => $this->faker->randomElement([
-                'Paracetamol',
-                'Ibuprofen',
-                'Amoxicillin',
-            ]),
-            'company' => $this->faker->randomElement([
-                'Pfizer',
-                'GlaxoSmithKline',
-                'Johnson & Johnson',
-            ]),
-            'applicable_for' => $this->faker->randomElement([
-                'human',
-                'species'
-            ]),
+            'name' => $this->faker->word,
+            'strength' => $this->faker->randomNumber(2),
+            'dosage_form' => Dosage::all()->random()->base_name,
+            'generic' => Generic::all()->random()->name,
+            'company' => Pharmaceutical::all()->random()->name,
+            'applicable_for' => Applicable::all()->random()->category,
         ];
     }
 }

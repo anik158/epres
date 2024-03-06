@@ -14,22 +14,22 @@ return new class extends Migration
         Schema::create('generics', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('composition');
-            $table->text('indications');
-            $table->text('therapeutic_class');
-            $table->text('pharmacology');
-            $table->text('dosage');
-            $table->text('administration');
-            $table->text('interaction');
-            $table->text('contraindications');
-            $table->text('side_effects');
-            $table->text('pregnancy_lactation');
-            $table->text('precautions');
-            $table->text('pediatric_use');
-            $table->text('overdose_effects');
-            $table->text('reconstitution');
-            $table->text('storage_condition');
-            $table->string('applicable_for');
+            $table->text('composition')->nullable();
+            $table->text('indications')->nullable();
+            $table->text('therapeutic_class')->nullable();
+            $table->text('pharmacology')->nullable();
+            $table->text('dosage')->nullable();
+            $table->text('administration')->nullable();
+            $table->text('interaction')->nullable();
+            $table->text('contraindications')->nullable();
+            $table->text('side_effects')->nullable();
+            $table->text('pregnancy_lactation')->nullable();
+            $table->text('precautions')->nullable();
+            $table->text('pediatric_use')->nullable();
+            $table->text('overdose_effects')->nullable();
+            $table->text('reconstitution')->nullable();
+            $table->text('storage_condition')->nullable();
+            $table->string('applicable_for')->nullable();
             $table->timestamps();
         });
     }

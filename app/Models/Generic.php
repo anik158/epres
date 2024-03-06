@@ -13,11 +13,29 @@ class Generic extends Model
         'name',
         'composition',
         'indications',
+        'therapeutic_class',
+        'pharmacology',
+        'dosage',
+        'administration',
+        'interaction' ,
+        'contraindications',
+        'side_effects',
+        'pregnancy_lactation',
+        'precautions',
+        'pediatric_use',
+        'overdose_effects',
+        'reconstitution',
+        'storage_condition',
         'applicable_for',
     ];
     public function applicable()
     {
         return $this->belongsTo(Applicable::class, 'applicables_for', 'category');
+    }
+
+    public function drugs()
+    {
+        return $this->hasMany(Drug::class, 'generic', 'name');
     }
 
 }

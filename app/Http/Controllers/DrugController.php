@@ -72,6 +72,7 @@ class DrugController extends Controller
 
             // Bulk index all drugs in this chunk
             $response = $client->bulk($bulkParams);
+            echo "Done populating";
         }
     }
 

@@ -61,13 +61,13 @@
                                                     <div class="col-sm-9 col-xs-12 text-right">
                                                         <div class="btn_group">
 
-                                                            <form action="{{ route('drugs-search') }}" method="GET" role="search" style="display: inline-block;">
+                                                            <form action="{{ route('companies-search') }}" method="GET" role="search" style="display: inline-block;">
                                                                 <label>
                                                                     <input type="text" class="form-control col-sm-9 " name="search" placeholder="Search">
                                                                 </label>
                                                                 <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
                                                             </form>
-                                                            <a class="btn btn-info" href="{{route('drug-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
+                                                            <a class="btn btn-info" href="{{route('company-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
 
                                                         </div>
                                                     </div>
@@ -78,23 +78,29 @@
                                             <table class="table">
                                                 <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Name</th>
                                                     <th>Drugs(Count)</th>
-
+                                                    <th>Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($pharmaceuticals as $pharmaceutical)
                                                     <tr>
-                                                        <td>{{ $pharmaceutical->id }}</td>
-                                                        <td>{{ $pharmaceutical->name }}</td>
-                                                        <td>{{ $pharmaceutical->count}}</td>
+                                                        <td>{{ $pharmaceutical['name'] }}</td>
+                                                        <td>{{ \App\Models\Drug::where('company', $pharmaceutical['name'])->count() }}</td>
+
 
                                                         <td>
-                                                            <ul class="action-list gap-3">
-                                                                <li class="list-group-item"><a href="#" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
-                                                                <li class="list-group-item"><a href="#" data-tip="delete">Del<i class="fa fa-trash"></i></a></li>
+                                                            <ul style="display: flex; " class="action-list gap-2">
+                                                                <li class="list-group-item"><a class="btn btn-warning" href="/companies_edit/{{ $pharmaceutical['id'] }}" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
+
+                                                                <li class="list-group-item">
+                                                                    <form action="/companies/{{ $pharmaceutical['id'] }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-danger" data-tip="delete">Del<i class="fa fa-trash"></i></button>
+                                                                    </form>
+                                                                </li>
                                                             </ul>
                                                         </td>
                                                     </tr>
@@ -102,6 +108,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <nav class="mt-4">
+                                            {{ $pharmaceuticals->links('vendor.pagination.bootstrap-4') }}
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +121,5 @@
         </section>
 
     </main>
-
-
-
 
 @endsection

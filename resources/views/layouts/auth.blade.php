@@ -378,6 +378,12 @@
                         <i class="bi bi-circle"></i><span>Form Validation</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{route('generic-create')}}">
+                        <i class="bi bi-circle"></i><span>Add Generic</span>
+                    </a>
+                </li>
             </ul>
         </li><!-- End Forms Nav -->
 
@@ -400,6 +406,19 @@
                 <li>
                     <a href="{{route('generic-list')}}">
                         <i class="bi bi-circle"></i><span>Generics</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('dosage-list')}}">
+                        <i class="bi bi-circle"></i><span>Dosages</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('company-list')}}">
+                        <i class="bi bi-circle"></i><span>Companies</span>
                     </a>
                 </li>
 

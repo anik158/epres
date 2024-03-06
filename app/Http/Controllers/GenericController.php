@@ -19,16 +19,6 @@ class GenericController extends Controller
 {
     public function index():view{
 
-//        $search = $request->input('search');
-//        if ($search) {
-//            $generics = Generic::where('name', 'LIKE', "%{$search}%")
-//                ->orWhere('composition', 'LIKE', "%{$search}%")
-//                ->orWhere('indication', 'LIKE', "%{$search}%")
-//                ->get();
-//        } else {
-//            $generics = Generic::all();
-//        }
-//
         $generics = Generic::latest()->paginate(40);
 
 
@@ -42,53 +32,9 @@ class GenericController extends Controller
     }
 
 
-//    public function store(Request $request): RedirectResponse
-//    {
-//        $request->validate([
-//            'name' => 'required',
-//            'composition' => 'required',
-//            'indication' => 'required',
-//            'therapeutic_class' => 'required',
-//            'pharmacology' => 'required',
-//            'dosage' => 'required',
-//            'administration' => 'required',
-//            'interaction' => 'required',
-//            'contraindications' => 'required',
-//            'side_effects' => 'required',
-//            'pregnancy_lactation' => 'required',
-//            'precautions' => 'required',
-//            'pediatric_use' => 'required',
-//            'overdose_effects' => 'required',
-//            'reconstitution' => 'required',
-//            'storage_condition' => 'required',
-//            'applicable_for' => 'required',
-//        ]);
-//
-//        Generic::create([
-//            'name' => $request->name,
-//            'composition' => $request->composition,
-//            'indications' => $request->indication,
-//            'therapeutic_class' => $request->therapeutic_class,
-//            'pharmacology' => $request->pharmacology,
-//            'dosage' => $request->dosage,
-//            'administration' => $request->administration,
-//            'interaction' => $request->interaction,
-//            'contraindications' => $request->contraindications,
-//            'side_effects' => $request->side_effects,
-//            'pregnancy_lactation' => $request->pregnancy_lactation,
-//            'precautions' => $request->precautions,
-//            'pediatric_use' => $request->pediatric_use,
-//            'overdose_effects' => $request->overdose_effects,
-//            'reconstitution' => $request->reconstitution,
-//            'storage_condition' => $request->storage_condition,
-//            'applicable_for' => $request->applicable_for,
-//        ]);
-//        return redirect()->route('generic-list');
-//    }
-
     public function store(Request $request): RedirectResponse
     {
-        $validationRules = [
+        $request->validate([
             'name' => 'required|string|max:255',
             'composition' => 'nullable|string',
             'indications' => 'nullable|string',
@@ -106,16 +52,30 @@ class GenericController extends Controller
             'reconstitution' => 'nullable|string',
             'storage_condition' => 'nullable|string',
             'applicable_for' => 'nullable|string',
-        ];
+        ]);
 
-        $this->validate($request, $validationRules);
-
-        $data = $request->except(['_token']);
-
-        $generic = Generic::create($data);
-
-        return redirect()->route('generic-list')->with('success', 'Generic drug created successfully!');
+        Generic::create([
+            'name' => $request->name,
+            'composition' => $request->composition,
+            'indications' => $request->indications,
+            'therapeutic_class' => $request->therapeutic_class,
+            'pharmacology' => $request->pharmacology,
+            'dosage' => $request->dosage,
+            'administration' => $request->administration,
+            'interaction' => $request->interaction,
+            'contraindications' => $request->contraindications,
+            'side_effects' => $request->side_effects,
+            'pregnancy_lactation' => $request->pregnancy_lactation,
+            'precautions' => $request->precautions,
+            'pediatric_use' => $request->pediatric_use,
+            'overdose_effects' => $request->overdose_effects,
+            'reconstitution' => $request->reconstitution,
+            'storage_condition' => $request->storage_condition,
+            'applicable_for' => $request->applicable_for,
+        ]);
+        return redirect()->route('generic-list');
     }
+
 
 
     public function edit($id){
@@ -159,7 +119,7 @@ class GenericController extends Controller
         }
     }
 
-    //Normal Search
+    //Eloquent Search
     public function searchGenerics(Request $request)
     {
         $searchTerm = $request->input('search');
