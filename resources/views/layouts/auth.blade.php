@@ -269,7 +269,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{{route('dashboard')}}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -384,6 +384,25 @@
                         <i class="bi bi-circle"></i><span>Add Generic</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{route('dosage-create')}}">
+                        <i class="bi bi-circle"></i><span>Add Dosage</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('company-create')}}">
+                        <i class="bi bi-circle"></i><span>Add Company</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('drug-create')}}">
+                        <i class="bi bi-circle"></i><span>Add Drug</span>
+                    </a>
+                </li>
+
             </ul>
         </li><!-- End Forms Nav -->
 

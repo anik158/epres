@@ -193,7 +193,6 @@ class DrugController extends Controller
 
     public function edit($id):View{
         $drug = Drug::find($id);
-
         $dosages = Dosage::all();
         $generics = Generic::all();
         $companies = Pharmaceutical::all();
@@ -213,7 +212,7 @@ class DrugController extends Controller
         $req->validate(
             [
                 'name' => 'required',
-                'strength' => 'required',
+                'strength' => 'nullable|string',
                 'dosage_form' => 'required',
                 'generic' => 'required',
                 'company' => 'required',

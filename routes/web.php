@@ -76,7 +76,7 @@ Route::put('/generics_update/{id}', [GenericController::class, 'update']);
 Route::delete('/generic/{id}', [GenericController::class, 'destroy']);
 
 //Routing Companies
-//Populate Elastic Data table for generics
+//Populate Elastic Data table for companies
 Route::get('/companies-elastic-add', [PharmaceuticalController::class, 'createIndexAndAddCompanies'])->name('company-elastic-populate');
 
 Route::get('/companies', [PharmaceuticalController::class, 'index'])->name('company-list')->middleware('auth');
@@ -97,7 +97,7 @@ Route::get('/create-index-elastic', [DrugController::class, 'createIndexAndAddDa
 Route::get('/drugs/create', [DrugController::class, 'create'])->name('drug-create');
 Route::post('/drugs', [DrugController::class, 'store']);
 Route::get('/drugs', [DrugController::class, 'index'])->name('drug-list')->middleware('auth');
-
+Route::put('/drugs_update/{id}', [DrugController::class, 'update']);
 Route::get('/drugs_edit/{id}',[DrugController::class,'edit']);
 Route::delete('/drugs/{id}', [DrugController::class, 'destroy']);
 //Elastic

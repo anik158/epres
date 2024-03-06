@@ -95,6 +95,7 @@
                                                         <td>{{ $generic['therapeutic_class'] }}</td>
                                                         <td>{{ \App\Models\Drug::where('generic', $generic['name'])->count() }}</td>
 
+
                                                         <td>
                                                             <ul class="action-list gap-2" style="display: flex">
                                                                 <li class="list-group-item"><a href="/generic_edit/{{$generic['id']}}" class="btn btn-warning" data-tip="edit">Edit<i class="fa fa-edit"></i></a></li>
