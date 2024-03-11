@@ -101,7 +101,8 @@ Route::put('/drugs_update/{id}', [DrugController::class, 'update']);
 Route::get('/drugs_edit/{id}',[DrugController::class,'edit']);
 Route::delete('/drugs/{id}', [DrugController::class, 'destroy']);
 //Elastic
-Route::get('/drugs-search', [DrugController::class, 'search'])->name('drugs-search');
+//Route::get('/drugs-search', [DrugController::class, 'search'])->name('drugs-search');
+Route::get('/drugs-search', [DrugController::class, 'searchDriad'])->name('drugs-search');
 //Elequent
 //Route::get('/drugs-search', [DrugController::class, 'searchDrugs'])->name('drugs-search');
 

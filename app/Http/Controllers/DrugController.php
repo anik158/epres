@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Drugs\DrugRepository;
+use App\Drugs\SearchEloDrugRepository;
 use App\Models\Applicable;
 use App\Models\Dosage;
 use App\Models\Drug;
@@ -18,6 +20,7 @@ use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use function Laravel\Prompts\search;
 
 class DrugController extends Controller
 {
@@ -29,6 +32,8 @@ class DrugController extends Controller
 
         return view('drugs', ['drugs' => $drugs]);
     }
+
+
 
     /**
      * @throws AuthenticationException
@@ -132,24 +137,39 @@ class DrugController extends Controller
 
 
 //return view('drugs', ['drugs' => $drugs]);
-    public function searchDrugs(Request $request)
-    {
-        $searchTerm = $request->input('search');
+//    public function searchDrugs(Request $request)
+//    {
+//        $searchTerm = $request->input('search');
+//
+//        $start = microtime(true); // Start the timer
+//
+//        $drugs = Drug::where('name', 'like', '%' . $searchTerm . '%')
+//            ->orWhere('generic', 'like', '%' . $searchTerm . '%')
+//            ->paginate(40);
+//
+//        $time = microtime(true) - $start; // Calculate the time difference
+//
+//        return view('drugs', ['drugs' => $drugs, 'time' => $time]);
+//    }
 
+    public function searchDrugs(SearchEloDrugRepository $searchRepository)
+    {
         $start = microtime(true); // Start the timer
 
-        $drugs = Drug::where('name', 'like', '%' . $searchTerm . '%')
-//            ->orWhere('strength', 'like', '%' . $searchTerm . '%')
-//            ->orWhere('dosage_form', 'like', '%' . $searchTerm . '%')
-            ->orWhere('generic', 'like', '%' . $searchTerm . '%')
-//            ->orWhere('company', 'like', '%' . $searchTerm . '%')
-//            ->orWhere('applicable_for', 'like', '%' . $searchTerm . '%')
-            ->paginate(40);
+        $drugs =  $searchRepository->search(request('search'));
 
         $time = microtime(true) - $start; // Calculate the time difference
 
         return view('drugs', ['drugs' => $drugs, 'time' => $time]);
     }
+
+    public function searchDriad(DrugRepository $drugRepository)
+    {
+        $drugs = $drugRepository->search(request('search'));
+
+        return view('drugs', ['drugs' => $drugs]);
+    }
+
 
 
     public function create(): View

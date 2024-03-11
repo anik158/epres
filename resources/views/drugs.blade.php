@@ -66,6 +66,7 @@
                                                             </label>
                                                             <button class="btn btn-default" title="Search" type="submit">Search<i class="fa fa-search"></i></button>
                                                         </form>
+
                                                         <a class="btn btn-info" href="{{route('drug-create')}}" title="Create">Create<i class="fa fa-file"></i></a>
 
                                                     </div>

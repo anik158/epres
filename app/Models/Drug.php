@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Search\ElasticSearchObserver;
+use App\Search\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Drug extends Model
 {
     use HasFactory;
+    use Searchable;
+
 
     protected $fillable = [
         'name',
@@ -37,6 +41,28 @@ class Drug extends Model
     {
         return $this->belongsTo(Applicable::class, 'applicables_for', 'category');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::observe(ElasticSearchObserver::class);
+    }
+
+    public function toElasticsearchDocumentArray(): array
+    {
+
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'strength' => $this->strength,
+            'dosage_form' => $this->dosage_form,
+            'generic' => $this->generic,
+            'company' => $this->company,
+            'applicable_for' => $this->applicable_for,
+        ];
+    }
+
 
 
 }
